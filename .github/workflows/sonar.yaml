@@ -1,0 +1,28 @@
+name: Setup Sonar Cloud project for New Repo
+
+on:
+  repository_dispatch:
+    types: [created]
+
+jobs:
+  create_sonarcloud_project:
+    runs-on: ubuntu-latest
+    steps:
+      #- name: Set up environment
+      #  run: |
+      #    GITHUB_TOKEN=$1 
+
+      - name: Create SonarCloud project
+        run: |
+          # Uses GitHub's API to create Sonar Cloud project for the newly created repository
+          # Dummy API call: curl -X POST -u "sonarcloud_token:" -d "name=projectName" "https://sonarcloud.io/api/projects/create"
+
+          # Extract repository information
+          GITHUB_USERNAME=$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 1)
+          
+          # Define project name
+          PROJECT_NAME="$GITHUB_USERNAME-react-course-1"
+          
+          # This will make an an API call to create Sonar Cloud project
+          
+          curl -X POST -u "<sonarcloud_token>:" -d "name=$PROJECT_NAME" "https://sonarcloud.io/api/projects/create"
